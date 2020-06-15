@@ -5,7 +5,7 @@ export const TrackList = ({id, tasks, name, createNewTask})=> (
     <div>
         <h3>{name}</h3>
         {tasks.map(task => (
-            <div> {task.name} </div>
+            <div key={task.id}> {task.name} </div>
         ))}
         <button onClick={() => createNewTask(id) }>Add New</button>
     </div>
