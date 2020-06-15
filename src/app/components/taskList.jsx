@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { requestTaskCreation } from "../store/mutations";
 
 export const TrackList = ({id, tasks, name, createNewTask})=> (
     <div>
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createNewTask (id) {
             console.log(`added task to group ${id}`);
+            dispatch(requestTaskCreation(id));
         }
     }
 };
