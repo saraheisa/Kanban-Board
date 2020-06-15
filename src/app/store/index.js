@@ -18,7 +18,28 @@ export const store = createStore(
                             group: action.groupId,
                             owner: action.ownerId,
                             isComplete: false
-                    }]
+                    }];
+                case mutations.SET_TASK_NAME:
+                    return tasks.map(task => {
+                        if (task.id === action.taskId) {
+                            task.name = action.name;
+                        }
+                        return task;
+                    });
+                case mutations.SET_TASK_GROUP:
+                    return tasks.map(task => {
+                        if (task.id === action.taskId) {
+                            task.group = action.group;
+                        }
+                        return task;
+                    });
+                case mutations.SET_TASK_COMPLETION:
+                    return tasks.map(task => {
+                        if (task.id === action.taskId) {
+                            task.isComplete = action.isComplete;
+                        }
+                        return task;
+                    });
             }
             return tasks;
         },
