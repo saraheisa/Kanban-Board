@@ -27,3 +27,24 @@ export function* taskCreationSaga() {
         console.log(res);
     }
 }
+
+export function* taskModificationSaga() {
+    while (true) {
+        const task = yield take([
+            mutations.SET_TASK_COMPLETION,
+            mutations.SET_TASK_GROUP,
+            mutations.SET_TASK_NAME
+         ]);
+
+        const { res } = yield axios.post(URL + '/task/update', {
+            task: {
+                id: task.taskId,
+                group: task.groupId,
+                owner: task.ownerId,
+                name: task.name,
+                isComplete: task.isComplete
+            }
+        });
+        console.log(res);
+    }
+}
