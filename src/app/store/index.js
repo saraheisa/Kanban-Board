@@ -52,6 +52,9 @@ export const store = createStore(
         },
         users(users = defaultState.users){
             return users;
+        },
+        session(session = defaultState.users){
+            return session;
         }
     }),
     applyMiddleware(createLogger(), sagaMiddleware)
