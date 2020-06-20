@@ -12,6 +12,18 @@ app.use(
     bodyParser.json()
 );
 
+export const addNewTask = async task => {
+    const db = await connectedDB();
+    const tasks = db.collection('tasks');
+    await tasks.insertOne(task);
+};
+
+app.post('/task/new', (req, res) => {
+    const task = req.body.task;
+    addNewTask(task);
+    res.status(200).send();
+});
+
 app.listen(PORT, () => {
     console.log(`Server started on PORT ${PORT}`);
 });
