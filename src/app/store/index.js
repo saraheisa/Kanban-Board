@@ -53,8 +53,18 @@ export const store = createStore(
         users(users = defaultState.users){
             return users;
         },
-        session(session = defaultState.users){
-            return session;
+        session(userSession = defaultState.session || {}, action){
+            let { type, session, authenticated } = action;
+            switch (type) {
+                case mutations.REQUEST_AUTHENTICATE_USER:
+                    return { ...userSession, authenticated: mutations.AUTHENTICATING }
+
+                case mutations.PROCESSING_AUTHENTICATE_USER:
+                    return { ...userSession, authenticated }
+
+                default:
+                    return userSession;
+            }
         }
     }),
     applyMiddleware(createLogger(), sagaMiddleware)
