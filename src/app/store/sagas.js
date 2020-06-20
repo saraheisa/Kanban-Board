@@ -48,3 +48,22 @@ export function* taskModificationSaga() {
         console.log(res);
     }
 }
+
+export function* authenticateUserSaga() {
+    while (true) {
+        const { username, password } = yield take(mutations.REQUEST_AUTHENTICATE_USER);
+        try {
+            const res = yield axios.post(URL + '/authenticate', {
+                username,
+                password
+            });
+            if (!res) {
+                throw new Error('failed to authenticate!');
+            }
+        } catch (error) {
+            console.log(error);
+            yield put(mutations.processingAuthenticateUser(mutations.NOT_AUTHENTICATED));
+        }
+
+    }
+}
