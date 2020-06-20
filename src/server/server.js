@@ -20,7 +20,7 @@ export const addNewTask = async task => {
 
 app.post('/task/new', (req, res) => {
     const task = req.body.task;
-    addNewTask(task);
+    await addNewTask(task);
     res.status(200).send();
 });
 
