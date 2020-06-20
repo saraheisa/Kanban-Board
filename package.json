@@ -9,7 +9,8 @@
     "dev": "webpack-dev-server --open",
     "seed-db": "babel-node src/server/initialize-db",
     "server": "babel-node src/server/server",
-    "server-test": "babel-node src/server/server.spec"
+    "server-test": "babel-node src/server/server.spec",
+    "start-dev": "concurrently \"npm run dev\" \"npm run server\""
   },
   "author": "Sarah Eisa",
   "license": "ISC",
