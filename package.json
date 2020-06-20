@@ -8,7 +8,8 @@
     "start": "webpack",
     "dev": "webpack-dev-server --open",
     "seed-db": "babel-node src/server/initialize-db",
-    "server": "babel-node src/server/server"
+    "server": "babel-node src/server/server",
+    "server-test": "babel-node src/server/server.spec"
   },
   "author": "Sarah Eisa",
   "license": "ISC",
