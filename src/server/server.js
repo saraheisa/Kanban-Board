@@ -18,7 +18,7 @@ export const addNewTask = async task => {
     await tasks.insertOne(task);
 };
 
-app.post('/task/new', (req, res) => {
+app.post('/task/new', async (req, res) => {
     const task = req.body.task;
     await addNewTask(task);
     res.status(200).send();
