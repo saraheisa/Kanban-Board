@@ -8,7 +8,9 @@ export const TrackList = ({id, tasks, name, createNewTask, comments})=> (
         <h3>{name}</h3>
         {tasks.map(task => (
             <Link to={`/tasks/${task.id}`} key={task.id}>
-                <div className="card p-2 mt-2"> {task.name} ({comments.filter(comment => comment.task === task.id).length})</div>
+                <div className="card p-2 mt-2"> {task.name} 
+                 ({comments.filter(comment => comment.task === task.id).length}) 
+                {task.isComplete? ' ✅' : ''}</div>
             </Link>
         ))}
         <button onClick={() => createNewTask(id) } className="btn btn-primary btn-block mt-2">
