@@ -20,10 +20,12 @@ export const assembleUserState = async user => {
     const tasks = await db.collection('tasks').find({'owner': user.id}).toArray();
     const groups = await db.collection('groups').find({'owner': user.id}).toArray();
     const session = {authenticated:`AUTHENTICATED`,id:user.id};
+    const users = { id: user.id, name: user.name, friends: user.friends };
     return {
         tasks,
         groups,
-        session
+        session,
+        users
     };
 }
 
