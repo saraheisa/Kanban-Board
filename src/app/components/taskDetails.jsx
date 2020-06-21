@@ -13,7 +13,8 @@ export const TaskDetails = ({
     setTaskName,
     setTaskGroup,
     createComment,
-    userId
+    userId,
+    username
 }) => (
     <div className="card p-3 col-6">
         <div>
@@ -33,7 +34,7 @@ export const TaskDetails = ({
         </div>
         <div className="mt-2">
             {comments.map(comment => (
-                <p>{comment.owner}: {comment.content}</p>
+                <p>{username}: {comment.content}</p>
             ))}
         </div>
         <form className="mt-2" onSubmit={(e) => createComment(e, id, userId)}>
@@ -56,13 +57,15 @@ const mapStateToProps = (state, ownProps) => {
     let groups = state.groups;
     let comments = state.comments.filter(comment => comment.task === id);
     let userId = state.session.id;
+    let username = state.users.name;
     return {
         id,
         comments,
         task,
         groups,
         isComplete: task.isComplete,
-        userId
+        userId,
+        username
     };
 };
 
