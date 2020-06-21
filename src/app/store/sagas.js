@@ -6,6 +6,7 @@ import {
 import uuid from 'uuid';
 import axios from 'axios';
 import * as mutations from './mutations';
+import { history } from './history';
 
 const URL = 'http://localhost:3000';
 
@@ -60,6 +61,12 @@ export function* authenticateUserSaga() {
             if (!res) {
                 throw new Error('failed to authenticate!');
             }
+            yield put(mutations.setState(res.data.state));
+            yield put(mutations.AUTHENTICATED);
+
+            // move to dashboard
+            history.push('/dashboard');
+
         } catch (error) {
             console.log(error);
             yield put(mutations.processingAuthenticateUser(mutations.NOT_AUTHENTICATED));
