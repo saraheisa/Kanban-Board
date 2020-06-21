@@ -52,8 +52,8 @@ export const updateTask = async task => {
 
 export const addNewComment = async comment => {
     const db = await connectedDB();
-    const tasks = db.collection('comments');
-    await tasks.insertOne(comment);
+    const comments = db.collection('comments');
+    await comments.insertOne(comment);
 };
 
 app.post('/task/new', async (req, res) => {
