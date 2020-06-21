@@ -3,6 +3,7 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import { connectedDB } from './connect-db';
 import { authenticationRoot } from './authenticate';
+import path from 'path';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -14,6 +15,13 @@ app.use(
 );
 
 authenticationRoot(app);
+
+if (process.env.NODE_ENV == 'production') {
+    app.use(express.static(path.resolve(__dirname,'../../dist')));
+    app.get('/*',(req,res)=>{
+        res.sendFile(path.resolve('index.html'));
+    });
+}
 
 export const addNewTask = async task => {
     const db = await connectedDB();

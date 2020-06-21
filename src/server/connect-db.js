@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 
-const url = 'mongodb://127.0.0.1:27017/dayOrganizer';
+const url = process.env.MongoDB_URI || 'mongodb://127.0.0.1:27017/dayOrganizer';
 let db = null;
 
 export async function connectedDB() {
