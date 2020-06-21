@@ -14,9 +14,10 @@ export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const REQUEST_USER_CREATION = 'REQUEST_USER_CREATION';
 export const PROCESSING_USER_CREATION = 'PROCESSING_USER_CREATION';
 
-export const requestTaskCreation = (groupId) => ({
+export const requestTaskCreation = (groupId, ownerId) => ({
     type: REQUEST_TASK_CREATION,
-    groupId
+    groupId,
+    ownerId
 });
 
 export const createTask = (taskId, groupId, ownerId) => ({

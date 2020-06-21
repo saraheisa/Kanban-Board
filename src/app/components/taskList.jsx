@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { requestTaskCreation } from "../store/mutations";
 import { Link } from 'react-router-dom';
 
-export const TrackList = ({id, tasks, name, createNewTask, comments})=> (
+export const TrackList = ({id, tasks, name, createNewTask, comments, userId})=> (
     <div className="card p-2 m-2">
         <h3>{name}</h3>
         {tasks.map(task => (
@@ -13,7 +13,7 @@ export const TrackList = ({id, tasks, name, createNewTask, comments})=> (
                 {task.isComplete? ' ✅' : ''}</div>
             </Link>
         ))}
-        <button onClick={() => createNewTask(id) } className="btn btn-primary btn-block mt-2">
+        <button onClick={() => createNewTask(id, userId) } className="btn btn-primary btn-block mt-2">
             Add New</button>
     </div>
 )
@@ -24,14 +24,15 @@ const mapStateToProps = (state, ownProps)=> {
         name: ownProps.name,
         id: groupId,
         tasks: state.tasks.filter(task => task.group === groupId),
-        comments: state.comments
+        comments: state.comments,
+        userId: state.users.id
     }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        createNewTask (id) {
-            dispatch(requestTaskCreation(id));
+        createNewTask (id, userId) {
+            dispatch(requestTaskCreation(id, userId));
         }
     }
 };
