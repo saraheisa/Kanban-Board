@@ -82,6 +82,9 @@ export const store = createStore(
                 case mutations.REQUEST_AUTHENTICATE_USER:
                     return { ...userSession, authenticated: mutations.AUTHENTICATING }
 
+                case mutations.REQUEST_USER_CREATION:
+                    return { ...userSession, authenticated: mutations.AUTHENTICATING }
+
                 case mutations.PROCESSING_AUTHENTICATE_USER:
                     return { ...userSession, authenticated }
 

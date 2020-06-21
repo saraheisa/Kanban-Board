@@ -11,6 +11,8 @@ export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED';
 export const SET_STATE = 'SET_STATE';
 export const REQUEST_COMMENT_CREATION = 'REQUEST_COMMENT_CREATION';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const REQUEST_USER_CREATION = 'REQUEST_USER_CREATION';
+export const PROCESSING_USER_CREATION = 'PROCESSING_USER_CREATION';
 
 export const requestTaskCreation = (groupId) => ({
     type: REQUEST_TASK_CREATION,
@@ -72,4 +74,10 @@ export const createComment = (id, owner, task, content) => ({
     owner,
     task,
     content
+});
+
+export const requestUserCreation = (name, password) => ({
+    type: REQUEST_USER_CREATION,
+    name,
+    password
 });

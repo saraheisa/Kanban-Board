@@ -7,6 +7,7 @@ import uuid from 'uuid';
 import axios from 'axios';
 import * as mutations from './mutations';
 import { history } from './history';
+import md5 from 'md5'
 
 const URL = process.env.NODE_ENV == 'production' ? '' : 'http://localhost:3000';
 
@@ -88,5 +89,35 @@ export function* commentCreationSaga() {
             }
         });
         yield put(mutations.createComment(id, owner, task, content));
+    }
+}
+
+export function* createUserSaga() {
+    while (true) {
+        const { name, password } = yield take(mutations.REQUEST_USER_CREATION);
+        const id = uuid();
+        const passwordHash = md5(password);
+        try {
+            const res = yield axios.post(URL + '/signup', {
+                user: {
+                    id,
+                    name,
+                    passwordHash
+                }
+            });
+            if (!res) {
+                throw new Error('failed to authenticate!');
+            }
+            yield put(mutations.setState(res.data.state));
+            yield put(mutations.AUTHENTICATED);
+
+            // move to dashboard
+            history.push('/dashboard');
+
+        } catch (error) {
+            console.log(error);
+            yield put(mutations.processingAuthenticateUser(mutations.NOT_AUTHENTICATED));
+        }
+
     }
 }

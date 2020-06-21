@@ -1,21 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as mutations from '../store/mutations';
-import { Link } from 'react-router-dom';
 
-export const Login = ( { authenticateUser, authenticated } ) => (
+export const Signup = ( { createUser, authenticated } ) => (
     <div className="card p-3 col-6">
-        <h2>LOGIN!!!</h2>
-        <Link to="/signup">
-            <p>Create an account</p>
-        </Link>
-        <form onSubmit={authenticateUser}>
-            <input type="text" name="username" id="username" placeholder="Username" className="form-control"/>
+        <h2>SIGNUP</h2>
+        <form onSubmit={createUser}>
+            <input type="text" name="name" id="name" placeholder="Username" className="form-control"/>
             <input type="password" name="password" id="password" placeholder="password" className="form-control mt-2"/>
             <input type="submit" value="LOGIN" disabled={ authenticated === mutations.AUTHENTICATING }  
             className="form-control mt-2 btn btn-primary btn-block" />
             {authenticated === mutations.NOT_AUTHENTICATED
-            ? <p>Username or Password is incorrect</p>
+            ? <p>Something Wrong Happened. try again!</p>
             : null
             }
         </form>
@@ -27,12 +23,12 @@ const mapStateToProps = ({ session }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    authenticateUser(e) {
+    createUser(e) {
         e.preventDefault();
-        const username = e.target['username'].value;
+        const name = e.target['name'].value;
         const password = e.target['password'].value;
-        dispatch(mutations.requestAuthenticateUser(username, password));
+        dispatch(mutations.requestUserCreation(name, password));
     }
 });
 
-export const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
+export const ConnectedSignup = connect(mapStateToProps, mapDispatchToProps)(Signup);

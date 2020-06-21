@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { store } from '../store';
 import { ConnectedDashboard } from "./dashboard";
 import { ConnectedLogin } from "./login";
+import { ConnectedSignup } from './signup';
 import { Router, Route } from "react-router-dom";
 import { history } from "../store/history";
 import { ConnectedNavigation } from "./navigation";
@@ -26,6 +27,11 @@ export const Main = ()=> (
                     exact
                     path="/"
                     component={ ConnectedLogin }
+                />
+                <Route
+                    exact
+                    path="/signup"
+                    component={ ConnectedSignup }
                 />
                 <Route
                     exact

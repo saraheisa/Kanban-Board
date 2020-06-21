@@ -4,6 +4,14 @@ import { connectedDB } from './connect-db';
 
 const authenticationTokens = [];
 
+const groups = [{
+        name: "To Do"
+    }, {
+        name: "Doing"
+    }, {
+        name: "Done"
+    }];
+
 export const getUser = async username => {
     const db = await connectedDB();
     const users = db.collection('users');
@@ -31,6 +39,18 @@ export const assembleUserState = async user => {
     };
 }
 
+export const addNewUser = async user => {
+    const db = await connectedDB();
+    const users = db.collection('users');
+    await users.insertOne(user);
+};
+
+export const addDefaultGroups = async groups => {
+    const db = await connectedDB();
+    const groupsCol = db.collection('groups');
+    await groupsCol.insertMany(groups);
+};
+
 export const authenticationRoot = (app) => {
     app.post('/authenticate', async (req, res) => {
         const { username, password } = req.body;
@@ -52,6 +72,35 @@ export const authenticationRoot = (app) => {
         });
 
         let state = await assembleUserState(user);
+
+        res.status(200).send({ token, state });
+    });
+
+    app.post('/signup', async (req, res) => {
+        const user = req.body.user;
+        await addNewUser(user);
+        
+        let token = uuid();
+
+        authenticationTokens.push({
+            token,
+            userId: user.id
+        });
+
+        groups.map(group => {
+            group.id = uuid();
+            group.owner = user.id;
+        });
+
+        await addDefaultGroups(groups);
+
+        let state = {
+            tasks: [],
+            groups,
+            session: {authenticated:`AUTHENTICATED`,id:user.id},
+            users: { id: user.id, name: user.name },
+            comments: []
+        };
 
         res.status(200).send({ token, state });
     });
