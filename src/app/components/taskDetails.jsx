@@ -34,7 +34,7 @@ export const TaskDetails = ({
         </div>
         <div className="mt-2">
             {comments.map(comment => (
-                <p>{username}: {comment.content}</p>
+                <p key={comment.id}>{username}: {comment.content}</p>
             ))}
         </div>
         <form className="mt-2" onSubmit={(e) => createComment(e, id, userId)}>
