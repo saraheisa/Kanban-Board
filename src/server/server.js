@@ -50,6 +50,12 @@ export const updateTask = async task => {
 
 };
 
+export const addNewComment = async comment => {
+    const db = await connectedDB();
+    const tasks = db.collection('comments');
+    await tasks.insertOne(comment);
+};
+
 app.post('/task/new', async (req, res) => {
     const task = req.body.task;
     await addNewTask(task);
@@ -59,6 +65,12 @@ app.post('/task/new', async (req, res) => {
 app.post('/task/update', async (req, res) => {
     const task = req.body.task;
     await updateTask(task);
+    res.status(200).send();
+});
+
+app.post('/comment/new', async (req, res) => {
+    const comment = req.body.comment;
+    await addNewComment(comment);
     res.status(200).send();
 });
 

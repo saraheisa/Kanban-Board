@@ -12,6 +12,8 @@ export const TaskDetails = ({
     setTaskCompletion,
     setTaskName,
     setTaskGroup,
+    createComment,
+    userId
 }) => (
     <div className="card p-3 col-6">
         <div>
@@ -29,6 +31,15 @@ export const TaskDetails = ({
                 ))}
             </select>
         </div>
+        <div className="mt-2">
+            {comments.map(comment => (
+                <p>{comment.owner}: {comment.content}</p>
+            ))}
+        </div>
+        <form className="mt-2" onSubmit={(e) => createComment(e, id, userId)}>
+            <input type="text" name="comment" id="comment" placeholder="Enter Comment" className="form-control d-inline w-75"/>
+            <input type="submit" value="Comment" className="btn btn-success ml-2"/>
+        </form>
         <div>
             <Link to="/dashboard">
                 <button className="btn btn-primary mt-2">Done</button>
@@ -44,12 +55,14 @@ const mapStateToProps = (state, ownProps) => {
     console.log(task);
     let groups = state.groups;
     let comments = state.comments.filter(comment => comment.task === id);
+    let userId = state.session.id;
     return {
         id,
         comments,
         task,
         groups,
-        isComplete: task.isComplete
+        isComplete: task.isComplete,
+        userId
     };
 };
 
@@ -64,6 +77,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         },
         setTaskGroup (e) {
             dispatch(mutations.setTaskGroup(id, e.target.value));
+        },
+        createComment (e, taskId, userId) {
+            e.preventDefault();
+            const comment = e.target['comment'].value;
+            dispatch(mutations.requestCommentCreation(userId, taskId, comment));
         }
     }
 };

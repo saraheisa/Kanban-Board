@@ -74,3 +74,19 @@ export function* authenticateUserSaga() {
 
     }
 }
+
+export function* commentCreationSaga() {
+    while (true) {
+        const { owner, task, content } = yield take(mutations.REQUEST_COMMENT_CREATION);
+        const id = uuid();
+        const { res } = yield axios.post(URL + '/comment/new', {
+            comment: {
+                id,
+                owner,
+                task,
+                content
+            }
+        });
+        yield put(mutations.createComment(id, owner, task, content));
+    }
+}

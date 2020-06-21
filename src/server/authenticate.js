@@ -21,11 +21,13 @@ export const assembleUserState = async user => {
     const groups = await db.collection('groups').find({'owner': user.id}).toArray();
     const session = {authenticated:`AUTHENTICATED`,id:user.id};
     const users = { id: user.id, name: user.name, friends: user.friends };
+    const comments = await db.collection('comments').find({}).toArray();
     return {
         tasks,
         groups,
         session,
-        users
+        users,
+        comments
     };
 }
 
