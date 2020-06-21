@@ -42,7 +42,7 @@ export const TaskDetails = ({
         </form>
         <div>
             <Link to="/dashboard">
-                <button className="btn btn-primary mt-2">Done</button>
+                <button className="btn btn-primary btn-block mt-2">Done</button>
             </Link>
         </div>
     </div>
