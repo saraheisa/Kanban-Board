@@ -66,6 +66,10 @@ Start DB
 
 If you're using VSCode you can use [Azure extension]('https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb') to connect to DB
 
+Initialize DB
+
+    $ npm run seed-db
+
 Start the app
 
     $ npm run start-dev
