@@ -1,6 +1,6 @@
-# Task Organizer
+# Kanban Board
 
-A simple Task organizer web application 
+A simple Kanban Board web application
 using _React_, _Redux_, _MongoDB_ and _Node.js_
 
 ---
