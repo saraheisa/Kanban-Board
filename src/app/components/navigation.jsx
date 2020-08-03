@@ -6,7 +6,7 @@ const Navigation = () => (
     <div>
         <Link to="/dashboard">
             <h1>
-                Day Organizer
+                Kanban Board
             </h1>
         </Link>
     </div>
