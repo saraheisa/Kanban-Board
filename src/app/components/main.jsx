@@ -41,7 +41,7 @@ export const Main = ()=> (
                 <Route
                     exact
                     path="/tasks/:id"
-                    render={({match}) => <ConnectedTaskDetails match={match}/>}
+                    render={RouteGuard(ConnectedTaskDetails) }
                 />
             </div>
         </Provider>
