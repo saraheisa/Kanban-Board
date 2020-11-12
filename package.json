@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run server",
+    "deploy": "npm run build && git commit -a -m deployment && git push heroku master",
     "dev": "webpack-dev-server --open",
-    "seed-db": "babel-node src/server/initialize-db",
-    "server": "babel-node src/server/server",
-    "server-test": "babel-node src/server/server.spec",
-    "start-dev": "concurrently \"npm run dev\" \"npm run server\""
+    "server": "cross-env NODE_ENV=production babel-node src/server",
+    "server-dev": "nodemon src/server --exec babel-node src/server",
+    "start-dev": "concurrently \"npm run server-dev\" \"npm run dev\"",
+    "server-spec": "babel-node src/server/server.spec",
+    "start": "npm run server"
   },
   "author": "Sarah Eisa",
   "license": "ISC",
